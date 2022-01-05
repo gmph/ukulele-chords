@@ -1,5 +1,5 @@
 
-const majors= ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const majors = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 const allChords = getAllChords(majors);
 getChordImageUrl('A').then(console.log);
 document.querySelector('button#show-fingering').onclick = () => {
@@ -16,20 +16,20 @@ function extractChords(text) {
 
 function displayChords(chords) {
   Promise.all(chords.map(
-      chord => getChordImageUrl(chord).then((chordImageUrl) => '<div class="chord"><div class="container"><img src="'+chordImageUrl+'"/></div></div>')
-    ))
+    chord => getChordImageUrl(chord).then((chordImageUrl) => '<div class="chord"><div class="container"><img src="' + chordImageUrl + '"/></div></div>')
+  ))
     .then((chordsHtml) => {
       document.querySelector('#chords').innerHTML = chordsHtml.join('');
     });
 }
-    
+
 function getAllChords(majors) {
   let chords = majors.concat(getAllSharps(majors), getAllFlats(majors));
   chords = chords.concat(getAllMinors(chords));
   return chords.sort();
 }
 
-function getAllSharps(chords){
+function getAllSharps(chords) {
   return chords.map(chord => chord + '#');
 }
 
@@ -56,6 +56,7 @@ function getFlatForSharp(sharp) {
 }
 
 function getChordImageUrl(chord) {
+  const basePath = '.netlify/functions/server';
   return new Promise((resolve, reject) => {
     if (isSharp(chord)) {
       chord = getFlatForSharp(chord);
@@ -69,7 +70,7 @@ function getChordImageUrl(chord) {
       }
     }
     request.addEventListener('load', onLoad);
-    request.open('GET', '/' + chord);
+    request.open('GET', basePath + '/' + chord);
     request.send();
   });
 }
