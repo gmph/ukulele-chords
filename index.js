@@ -1,7 +1,6 @@
 
 const majors = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 const allChords = getAllChords(majors);
-getChordImageUrl('A').then(console.log);
 document.querySelector('button#show-fingering').onclick = () => {
   const rawText = document.querySelector('textarea#raw').value;
   const chordsInRawText = extractChords(rawText);
@@ -54,12 +53,22 @@ function getFlatForSharp(sharp) {
   return sharp.replace(sharpNote, flatNote).replace('#', 'b');
 }
 
+function getNormalChord(chord) {
+  if (!isChord(chord)) {
+    return null;
+  } else if (isSharp(chord)) {
+    return getFlatForSharp(chord);
+  } else {
+    return chord;
+  }
+}
+
 function getChordImageUrl(chord) {
   return new Promise((resolve, reject) => {
     if (!isChord(chord)) {
       reject(new Error('Invalid chord'));
     } else {
-      resolve(`https://ukutabs.com/chords/standard/${chord}.svg`);
+      resolve(`https://ukutabs.com/chords/standard/${getNormalChord(chord)}.svg`);
     }
   });
 }
