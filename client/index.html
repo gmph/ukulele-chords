@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chord Ukulele-ifier</title>
+    <meta
+      name="description"
+      content="Paste or type chords (even with lyrics mixed in) to see all chord diagrams"
+    />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="reduced-width">
+        <h1 class="emoji-header">🎸</h1>
+        <h1><em>Chord Ukulele-ifier</em>™️</h1>
+        <p>
+          Paste or type chords (even with lyrics mixed in) to see all of the
+          chord diagrams
+        </p>
+        <textarea id="raw" placeholder="E.g. C F Am G"></textarea>
+        <button id="show-fingering">Show chord diagrams</button>
+      </div>
+      <div id="chords">
+        <!-- Chords will display here -->
+      </div>
+      <p class="reduced-width faded">
+        Chord images made available by
+        <a
+          href="https://ukutabs.com"
+          target="_blank"
+          noreferrer="true"
+          noopener="true"
+          >ukutabs.com</a
+        >.
+      </p>
+    </div>
+
+    <script src="index.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-0BL1639Z1X"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-0BL1639Z1X");
+    </script>
+  </body>
+</html>
