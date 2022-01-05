@@ -28,11 +28,11 @@ function getAllChords(majors) {
 }
 
 function getAllSharps(chords) {
-  return chords.map(chord => chord + '#');
+  return chords.filter(chord => !['B', 'E'].includes(chord)).map(chord => chord + '#');
 }
 
 function getAllFlats(chords) {
-  return chords.map(chord => chord + 'b');
+  return chords.filter(chord => !['C', 'F'].includes(chord)).map(chord => chord + 'b');
 }
 
 function getAllMinors(chords) {
