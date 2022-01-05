@@ -17,10 +17,9 @@ function extractChords(text) {
 function displayChords(chords) {
   Promise.all(chords.map(
     chord => getChordImageUrl(chord).then((chordImageUrl) => '<div class="chord"><div class="container"><img src="' + chordImageUrl + '"/></div></div>')
-  ))
-    .then((chordsHtml) => {
-      document.querySelector('#chords').innerHTML = chordsHtml.join('');
-    });
+  )).then((chordsHtml) => {
+    document.querySelector('#chords').innerHTML = chordsHtml.join('');
+  });
 }
 
 function getAllChords(majors) {
@@ -42,7 +41,7 @@ function getAllMinors(chords) {
 }
 
 function isChord(chord) {
-  return allChords.indexOf(chord) > -1;
+  return typeof chord === 'string' && allChords.indexOf(chord) > -1;
 }
 
 function isSharp(chord) {
@@ -56,21 +55,11 @@ function getFlatForSharp(sharp) {
 }
 
 function getChordImageUrl(chord) {
-  const basePath = '.netlify/functions/server';
   return new Promise((resolve, reject) => {
-    if (isSharp(chord)) {
-      chord = getFlatForSharp(chord);
+    if (!isChord(chord)) {
+      reject(new Error('Invalid chord'));
+    } else {
+      resolve(`https://ukutabs.com/chords/standard/${chord}.svg`);
     }
-    const request = new XMLHttpRequest();
-    const onLoad = function () {
-      if (this.status === 200) {
-        resolve(this.responseText);
-      } else {
-        reject(new Error('Failed to get chord image URL'));
-      }
-    }
-    request.addEventListener('load', onLoad);
-    request.open('GET', basePath + '/' + chord);
-    request.send();
   });
 }
