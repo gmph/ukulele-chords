@@ -51,7 +51,7 @@ function isSharp(chord) {
 function getFlatForSharp(sharp) {
   const sharpNote = sharp[0];
   const flatNote = majors[(majors.indexOf(sharpNote) + 1) % majors.length];
-  return flatNote + 'b' + sharp.slice(2);
+  return sharp.replace(sharpNote, flatNote).replace('#', 'b');
 }
 
 function getChordImageUrl(chord) {
